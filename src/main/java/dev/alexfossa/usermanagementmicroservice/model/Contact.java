@@ -38,8 +38,8 @@ public class Contact implements Serializable {
     @Column(name = "github_profile")
     private String githubProfile;
 
-    @OneToMany(mappedBy = "contact")
-    @Fetch(FetchMode.JOIN)
-    private Collection<IntensiveUser> intensiveUsers;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "user_id")
+    private IntensiveUser intensiveUserContact;
 
 }

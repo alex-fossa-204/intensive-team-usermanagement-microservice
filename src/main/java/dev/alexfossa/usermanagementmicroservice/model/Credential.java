@@ -45,7 +45,7 @@ public class Credential implements Serializable {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
-    private IntensiveUser intensiveUser;
+    private IntensiveUser intensiveUserCredential;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

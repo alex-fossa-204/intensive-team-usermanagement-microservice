@@ -44,11 +44,7 @@ public class IntensiveUser implements Serializable {
     @Column(name = "user_uuid")
     private UUID userUuid;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "contact_id")
-    private Contact contact;
-
-    @OneToMany(mappedBy = "intensiveUser")
+    @OneToMany(mappedBy = "intensiveUserCredential")
     @Fetch(FetchMode.JOIN)
     private Collection<Credential> userCredentials;
 
