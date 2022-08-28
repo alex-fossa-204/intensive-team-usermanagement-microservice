@@ -9,6 +9,9 @@ import dev.alexfossa.usermanagementmicroservice.repository.RoleRepository;
 import dev.alexfossa.usermanagementmicroservice.service.IUserAdministrationService;
 import dev.alexfossa.usermanagementmicroservice.service.dto.IntensiveUserDto;
 import dev.alexfossa.usermanagementmicroservice.service.exception.ServiceException;
+import dev.alexfossa.usermanagementmicroservice.service.exception.implementation.EmptyResultSetServiceException;
+import dev.alexfossa.usermanagementmicroservice.service.exception.implementation.IntensiveUserAlreadyExistsServiceException;
+import dev.alexfossa.usermanagementmicroservice.service.exception.implementation.IntensiveUserNotFoundServiceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -37,8 +40,8 @@ public class UserAdministrationService implements IUserAdministrationService {
     @Override
     public List<IntensiveUserDto> findAllUsers() throws ServiceException {
         List<IntensiveUserCredential> intensiveUserEntityList = intensiveUserCredentialRepository.findAll();
-        if(intensiveUserEntityList == null) {
-            throw new ServiceException("Empty Result Set for find all users...");
+        if(intensiveUserEntityList.isEmpty()) {
+            throw new EmptyResultSetServiceException("Empty Result Set for find all users...");
         }
         return intensiveUserEntityList.stream()
                 .map(intensiveUser -> intensiveUserToIntensiveUserDtoMapper.mapEntityToDto(intensiveUser))
@@ -50,12 +53,12 @@ public class UserAdministrationService implements IUserAdministrationService {
     public IntensiveUserDto registerNewUser(IntensiveUserDto intensiveUserDto) throws ServiceException {
         Optional<IntensiveUserCredential> intensiveUserCredentialOptional = intensiveUserCredentialRepository.findIntensiveUserCredentialByUsername(intensiveUserDto.getUsername());
         if(intensiveUserCredentialOptional.isPresent()) {
-            throw new ServiceException(String.format("Username already exists. username = %s", intensiveUserDto.getUsername()));
+            throw new IntensiveUserAlreadyExistsServiceException(String.format("Username already exists. username = %s", intensiveUserDto.getUsername()));
         }
         IntensiveUser intensiveUser = IntensiveUser.builder()
                 .firstname(intensiveUserDto.getFirstname())
-                .surname(intensiveUserDto.getFirstname())
-                .lastname(intensiveUserDto.getFirstname())
+                .surname(intensiveUserDto.getSurname())
+                .lastname(intensiveUserDto.getLastname())
                 .dateOfBirth(intensiveUserDto.getDateOfBirth())
                 .location(intensiveUserDto.getLocation())
                 .userUuid(UUID.randomUUID())
@@ -77,7 +80,7 @@ public class UserAdministrationService implements IUserAdministrationService {
     @Override
     public IntensiveUserDto updateUserInfo(IntensiveUserDto intensiveUserDto) throws ServiceException {
         IntensiveUserCredential intensiveUserCredential = intensiveUserCredentialRepository.findIntensiveUserCredentialByUsername(intensiveUserDto.getUsername())
-                .orElseThrow(() -> new ServiceException(String.format("User Credential not found: username = %s", intensiveUserDto.getUsername())));
+                .orElseThrow(() -> new IntensiveUserNotFoundServiceException(String.format("User Credential not found: username = %s", intensiveUserDto.getUsername())));
         intensiveUserCredential.setIntensiveUserEntity(populateIntensiveUserFields(intensiveUserCredential.getIntensiveUserEntity(), intensiveUserDto));
         intensiveUserCredential = intensiveUserCredentialRepository.save(intensiveUserCredential);
         return intensiveUserToIntensiveUserDtoMapper.mapEntityToDto(intensiveUserCredential);
@@ -87,7 +90,7 @@ public class UserAdministrationService implements IUserAdministrationService {
     @Override
     public IntensiveUserDto deleteUser(IntensiveUserDto intensiveUserDto) throws ServiceException {
         IntensiveUserCredential intensiveUserCredential = intensiveUserCredentialRepository.findIntensiveUserCredentialByUsername(intensiveUserDto.getUsername())
-                .orElseThrow(() -> new ServiceException(String.format("User Credential not found: username = %s", intensiveUserDto.getUsername())));
+                .orElseThrow(() -> new IntensiveUserNotFoundServiceException(String.format("User Credential not found: username = %s", intensiveUserDto.getUsername())));
         intensiveUserRepository.deleteById(intensiveUserCredential.getIntensiveUserEntity().getId());
         return intensiveUserToIntensiveUserDtoMapper.mapEntityToDto(intensiveUserCredential);
     }

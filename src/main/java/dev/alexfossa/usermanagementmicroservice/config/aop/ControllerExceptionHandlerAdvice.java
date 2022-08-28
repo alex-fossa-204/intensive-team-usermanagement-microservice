@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,11 @@ public class ControllerExceptionHandlerAdvice {
 
     @ExceptionHandler(value = ServiceException.class)
     public ResponseEntity<BaseHttpResponseDto> serviceExceptionHandler(ServiceException serviceException) {
+        return createHttpResponse(BAD_REQUEST, serviceException.getMessage());
+    }
+
+    @ExceptionHandler(value = DateTimeParseException.class)
+    public ResponseEntity<BaseHttpResponseDto> dateTimeExceptionHandler(DateTimeParseException serviceException) {
         return createHttpResponse(BAD_REQUEST, serviceException.getMessage());
     }
 
