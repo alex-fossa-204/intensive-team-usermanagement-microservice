@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +36,7 @@ public class ControllerExceptionHandlerAdvice {
         return new ResponseEntity<>(BaseHttpResponseDto.builder()
                 .timeStamp(LocalDateTime.now())
                 .httpStatus(httpStatus)
-                .message(message)
+                .messages(List.of(message))
                 .build(), httpStatus);
     }
 
@@ -45,7 +44,7 @@ public class ControllerExceptionHandlerAdvice {
         return new ResponseEntity<>(BaseHttpResponseDto.builder()
                 .timeStamp(LocalDateTime.now())
                 .httpStatus(httpStatus)
-                .message(Arrays.toString(messages.toArray()))
+                .messages(messages)
                 .build(), httpStatus);
 
     }

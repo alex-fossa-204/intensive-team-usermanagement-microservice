@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static dev.alexfossa.usermanagementmicroservice.service.dto.BaseHttpResponseDto.BaseHttpResponseDtoConstant.*;
 
@@ -26,7 +27,7 @@ public class BaseHttpResponseDto {
     private HttpStatus httpStatus;
 
     @JsonProperty(MESSAGE_JSON_PROPERTY_NAME)
-    private String message;
+    private List<String> messages;
 
     interface BaseHttpResponseDtoConstant {
 
