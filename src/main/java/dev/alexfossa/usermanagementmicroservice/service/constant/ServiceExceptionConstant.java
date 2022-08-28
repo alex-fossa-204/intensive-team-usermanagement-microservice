@@ -1,2 +1,4 @@
-package dev.alexfossa.usermanagementmicroservice.service.constant;public class ServiceExceptionConstant {
+package dev.alexfossa.usermanagementmicroservice.service.constant;
+
+public class ServiceExceptionConstant {
 }

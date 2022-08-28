@@ -1,2 +1,6 @@
-package dev.alexfossa.usermanagementmicroservice.service;public interface IUserRegistrationService {
+package dev.alexfossa.usermanagementmicroservice.service;
+
+public interface IUserRegistrationService {
+
+
 }
