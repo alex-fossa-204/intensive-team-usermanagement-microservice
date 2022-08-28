@@ -15,12 +15,14 @@ import static dev.alexfossa.usermanagementmicroservice.service.dto.LoginRequestD
 @Data
 public class LoginRequestDto {
 
-    @Pattern(regexp = LOGIN_VALIDATION_REGEX, message = LOGIN_CHAR_VALIDATION_ERROR_MESSAGE)
+
     @JsonProperty(LOGIN_FIELD_JSON_PROPERTY_NAME)
+    @Pattern(regexp = LOGIN_VALIDATION_REGEX, message = LOGIN_CHAR_VALIDATION_ERROR_MESSAGE)
     private String login;
 
-    @NotBlank(message = PASSWORD_FIELD_NOT_BLANK_ERROR_MESSAGE)
+
     @JsonProperty(PASSWORD_FILED_JSON_PROPERTY_NAME)
+    @NotBlank(message = PASSWORD_FIELD_NOT_BLANK_ERROR_MESSAGE)
     private String password;
 
     interface LoginDtoConstant {

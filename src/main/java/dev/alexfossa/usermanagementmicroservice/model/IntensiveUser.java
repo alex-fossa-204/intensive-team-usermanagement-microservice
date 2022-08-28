@@ -19,7 +19,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @EqualsAndHashCode
-@ToString(exclude = {"id", "userCredentials"})
+@ToString(exclude = {"id", "intensiveUserCredentials"})
 @Builder
 public class IntensiveUser implements Serializable {
 
@@ -45,9 +45,9 @@ public class IntensiveUser implements Serializable {
     @Column(name = "user_uuid")
     private UUID userUuid;
 
-    @OneToMany(mappedBy = "intensiveUserEntity",cascade = { CascadeType.ALL})
+    @OneToMany(mappedBy = "intensiveUserEntity",cascade = { CascadeType.ALL })
     @Fetch(FetchMode.JOIN)
-    private Collection<IntensiveUserCredential> userIntensiveUserCredentials;
+    private Collection<IntensiveUserCredential> intensiveUserCredentials;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

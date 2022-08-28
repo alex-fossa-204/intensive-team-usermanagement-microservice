@@ -1,0 +1,12 @@
+package dev.alexfossa.usermanagementmicroservice.service;
+
+import dev.alexfossa.usermanagementmicroservice.service.dto.RegistrationVerificationRequestDto;
+import dev.alexfossa.usermanagementmicroservice.service.dto.RegistrationVerificationResponseDto;
+import dev.alexfossa.usermanagementmicroservice.service.exception.ServiceException;
+
+public interface IUserRegistrationManagementService extends IRegistrationVerificationService<RegistrationVerificationResponseDto, RegistrationVerificationRequestDto> {
+
+    @Override
+    RegistrationVerificationResponseDto userRegistrationCredentialsVerification(RegistrationVerificationRequestDto verificationRequest) throws ServiceException;
+
+}

@@ -2,6 +2,7 @@ package dev.alexfossa.usermanagementmicroservice.config.aop;
 
 import dev.alexfossa.usermanagementmicroservice.service.dto.BaseHttpResponseDto;
 import dev.alexfossa.usermanagementmicroservice.service.exception.ServiceException;
+import dev.alexfossa.usermanagementmicroservice.service.exception.implementation.IntensiveUserAlreadyExistsServiceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -18,6 +19,11 @@ import static org.springframework.http.HttpStatus.*;
 
 @RestControllerAdvice
 public class ControllerExceptionHandlerAdvice {
+
+    @ExceptionHandler(value = IntensiveUserAlreadyExistsServiceException.class)
+    public ResponseEntity<BaseHttpResponseDto> intensiveUserExistServiceExceptionHandler(IntensiveUserAlreadyExistsServiceException serviceException) {
+        return createHttpResponse(CONFLICT, serviceException.getMessage());
+    }
 
     @ExceptionHandler(value = ServiceException.class)
     public ResponseEntity<BaseHttpResponseDto> serviceExceptionHandler(ServiceException serviceException) {

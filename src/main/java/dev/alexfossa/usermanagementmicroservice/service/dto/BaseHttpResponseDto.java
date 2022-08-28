@@ -3,9 +3,9 @@ package dev.alexfossa.usermanagementmicroservice.service.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ import static dev.alexfossa.usermanagementmicroservice.service.dto.BaseHttpRespo
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Data
 public class BaseHttpResponseDto {
 

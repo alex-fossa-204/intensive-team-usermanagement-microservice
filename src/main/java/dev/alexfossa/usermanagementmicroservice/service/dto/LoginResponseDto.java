@@ -2,9 +2,9 @@ package dev.alexfossa.usermanagementmicroservice.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Set;
 
@@ -12,9 +12,9 @@ import static dev.alexfossa.usermanagementmicroservice.service.dto.LoginResponse
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Data
-public class LoginResponseDto {
+public class LoginResponseDto extends BaseHttpResponseDto {
 
     @JsonProperty(JWT_TOKEN_JSON_PROPERTY_NAME)
     private String jwtToken;
