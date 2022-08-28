@@ -1,0 +1,2 @@
+package dev.alexfossa.usermanagementmicroservice.mapper.implementation;public interface IntensiveUserToIntensiveUserDtoMapper {
+}

@@ -33,6 +33,6 @@ public class Role implements Serializable {
     private Set<Privilege> privileges;
 
     @ManyToMany(mappedBy = "roles")
-    private Collection<Credential> credentials;
+    private Collection<IntensiveUserCredential> intensiveUserCredentials;
 
 }

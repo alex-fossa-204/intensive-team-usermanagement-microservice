@@ -16,7 +16,8 @@ import java.util.Set;
 @Setter
 @EqualsAndHashCode
 @ToString(exclude = {"id"})
-public class Credential implements Serializable {
+@Builder
+public class IntensiveUserCredential implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +36,7 @@ public class Credential implements Serializable {
     private LocalDate lastLoginDate;
 
     @Column(name = "is_non_locked")
-    private Boolean inNonLocked;
+    private Boolean isNonLocked;
 
     @Column(name = "is_active")
     private Boolean isActive;
@@ -43,9 +44,9 @@ public class Credential implements Serializable {
     @Column(name = "is_credential_non_expired")
     private Boolean isCredentialNonExpired;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id")
-    private IntensiveUser intensiveUserCredential;
+    private IntensiveUser intensiveUserEntity;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
