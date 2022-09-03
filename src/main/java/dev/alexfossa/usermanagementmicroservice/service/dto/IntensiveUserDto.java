@@ -17,7 +17,12 @@ import static dev.alexfossa.usermanagementmicroservice.service.dto.IntensiveUser
 @NoArgsConstructor
 @Builder
 @Data
-public class IntensiveUserDto {
+public class IntensiveUserDto implements
+        DtoRegExConstantPropertyUsername,
+        DtoRegExConstantPropertyFirstname,
+        DtoRegExConstantPropertySurname,
+        DtoRegExConstantPropertyLastname,
+        DtoRegExConstantPropertyLocation {
 
     @JsonProperty(USER_UID_JSON_PROPERTY_NAME)
     private UUID userUuid;
@@ -48,41 +53,19 @@ public class IntensiveUserDto {
 
     interface IntensiveUserDtoConstant {
 
-        String REGEX_SPECIAL_CHARS = "\\[\\]\\/!\\?@#\\&$_\\*;%^()|<>,~`.=\\+}\\'{:\\-\\\\";
-
         String USER_UID_JSON_PROPERTY_NAME = "userUuid";
 
         String USERNAME_JSON_PROPERTY_NAME = "username";
 
-        String USERNAME_VALIDATION_REGEX = "^(?=.*[A-Za-z])(?=.*[" + REGEX_SPECIAL_CHARS + "])[0-9A-Za-z" + REGEX_SPECIAL_CHARS + "]{2,30}$";
-
-        String USERNAME_VALIDATION_REGEX_MESSAGE = "Username must contain 2-30 characters: 0-9, A-Z, a-z";
-
         String USER_FIRSTNAME_JSON_PROPERTY_NAME = "firstname";
-
-        String USER_FIRSTNAME_VALIDATION_REGEX = "^(?=.*[A-Za-z])[A-Za-z]{2,30}$";
-
-        String USER_FIRSTNAME_VALIDATION_REGEX_MESSAGE = "Firstname must contain 2-30 characters: A-Z, a-z and at least 1 A-Z, a-z character";
 
         String USER_SURNAME_JSON_PROPERTY_NAME = "surname";
 
-        String USER_SURNAME_VALIDATION_REGEX = "^[A-Za-z]{0,30}$";
-
-        String USER_SURNAME_VALIDATION_REGEX_MESSAGE = "Surname must contain 0-30 characters: A-Z, a-z";
-
         String USER_LASTNAME_JSON_PROPERTY_NAME = "lastname";
-
-        String USER_LASTNAME_VALIDATION_REGEX = "^(?=.*[A-Za-z])[A-Za-z]{2,30}$";
-
-        String USER_LASTNAME_VALIDATION_REGEX_MESSAGE = "Lastname must contain 2-30 characters: A-Z, a-z and at least 1 A-Z, a-z character";
 
         String USER_DATE_OF_BIRTH_JSON_PROPERTY_NAME = "dateOfBirth";
 
         String USER_LOCATION_JSON_PROPERTY_NAME = "location";
-
-        String USER_LOCATION_VALIDATION_REGEX = "^(?=.*[A-Za-z])[A-Za-z]{2,30}$";
-
-        String USER_LOCATION_VALIDATION_REGEX_MESSAGE = "Location must contain 2-30 characters: A-Z, a-z and at least 1 A-Z, a-z character";
 
     }
 
